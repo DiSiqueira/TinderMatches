@@ -21,8 +21,10 @@ func main() {
 	t := tindergo.New()
 
 	err := t.Authenticate(*token)
+	checkError(err)
 
 	profile, err := t.Profile()
+	checkError(err)
 
 	fmt.Println("Your Profile:")
 	fmt.Println("Name: " + profile.Name)
@@ -32,8 +34,14 @@ func main() {
 
 	for j := 0; j <= 3; j++ {
 		recs, err := t.RecsCore()
-
+		checkError(err)
 		allRecs = append(allRecs, recs)
 	}
 
+}
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
