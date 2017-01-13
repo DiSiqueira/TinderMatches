@@ -39,6 +39,12 @@ func main() {
 	}
 }
 
+func analizeRecs(recs []tindergo.RecsCoreUser) {
+	for _, elem := range recs {
+		elem.
+	}
+}
+
 // checkError Panic application if has an error returned.
 func checkError(err error) {
 	if err != nil {
