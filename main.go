@@ -41,7 +41,7 @@ func main() {
 
 func analizeRecs(recs []tindergo.RecsCoreUser) {
 	for _, elem := range recs {
-		elem.
+		fmt.Println(elem.Name)
 	}
 }
 
