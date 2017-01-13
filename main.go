@@ -41,9 +41,7 @@ func main() {
 
 // checkError Panic application if has an error returned.
 func checkError(err error) {
-
 	if err != nil {
-
 		panic(err)
 	}
 }
