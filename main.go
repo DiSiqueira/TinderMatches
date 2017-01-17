@@ -41,6 +41,8 @@ func main() {
 			_, exist := allRecs[elem.ID]
 			if exist {
 				countRecs[elem.ID] = countRecs[elem.ID] + 1
+			} else {
+				countRecs[elem.ID] = 1
 			}
 			allRecs[elem.ID] = elem
 		}
