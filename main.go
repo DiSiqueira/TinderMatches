@@ -43,10 +43,9 @@ func main() {
 				countRecs[elem.ID] = countRecs[elem.ID] + 1
 			} else {
 				countRecs[elem.ID] = 1
+				allRecs[elem.ID] = elem
 			}
-			allRecs[elem.ID] = elem
 		}
-
 	}
 }
 
