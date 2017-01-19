@@ -30,12 +30,19 @@ func main() {
 	fmt.Println("Name: " + profile.Name)
 	fmt.Println("")
 
+	err = getRecs(t)
+	checkError(err)
+}
+
+func getRecs(t *tindergo.TinderGo) error {
 	var allRecs map[string]tindergo.RecsCoreUser
 	var countRecs map[string]int
 
 	for j := 0; j <= 3; j++ {
 		recs, err := t.RecsCore()
-		checkError(err)
+		if err != nil {
+			return err
+		}
 
 		for _, elem := range recs {
 			_, exist := allRecs[elem.ID]
