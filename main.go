@@ -34,6 +34,7 @@ func main() {
 	checkError(err)
 }
 
+// getRecs makes four requests to find common results.
 func getRecs(t *tindergo.TinderGo) error {
 	var allRecs map[string]tindergo.RecsCoreUser
 	var countRecs map[string]int
