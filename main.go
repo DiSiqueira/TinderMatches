@@ -49,10 +49,6 @@ func main() {
 	}
 }
 
-func analizeRecs(recs []tindergo.RecsCoreUser) {
-	for _, elem := range recs {
-		fmt.Println(elem.Name)
-	}
 }
 
 // checkError Panic application if has an error returned.
