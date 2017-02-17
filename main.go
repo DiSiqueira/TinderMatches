@@ -48,6 +48,10 @@ func main() {
 		}
 	}
 
+	for i, e := range allRecs {
+		fmt.Println(e.Name, countRecs[i])
+	}
+
 }
 
 // checkError Panic application if has an error returned.
