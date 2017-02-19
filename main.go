@@ -34,6 +34,7 @@ func main() {
 	var countRecs map[string]int
 
 	for j := 0; j <= 3; j++ {
+
 		recs, err := t.RecsCore()
 		checkError(err)
 
