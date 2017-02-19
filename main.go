@@ -26,7 +26,7 @@ func main() {
 	profile, err := t.Profile()
 	checkError(err)
 
-	fmt.Println("Your Profile:")
+	fmt.Println("You:")
 	fmt.Println("Name: " + profile.Name)
 	fmt.Println("")
 
@@ -34,7 +34,6 @@ func main() {
 	var countRecs map[string]int
 
 	for j := 0; j <= 3; j++ {
-
 		recs, err := t.RecsCore()
 		checkError(err)
 
