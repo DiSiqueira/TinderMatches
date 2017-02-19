@@ -49,7 +49,7 @@ func main() {
 	}
 
 	for i, e := range allRecs {
-		if countRecs[i] > 3 {
+		if countRecs[i] > 2 {
 			fmt.Println(e.Name, countRecs[i])
 		}
 	}
