@@ -30,8 +30,8 @@ func main() {
 	fmt.Println("Name: " + profile.Name)
 	fmt.Println("")
 
-	var allRecs map[string]tindergo.RecsCoreUser
-	var countRecs map[string]int
+	allRecs := make(map[string]tindergo.RecsCoreUser)
+	countRecs := make(map[string]int)
 
 	for j := 0; j <= 3; j++ {
 		recs, err := t.RecsCore()
