@@ -51,7 +51,7 @@ func main() {
 
 	for i, e := range allRecs {
 		if countRecs[i] > 2 {
-			fmt.Println(e.Name, countRecs[i], float64((countRecs[i]*100)/4), "%")
+			fmt.Println(e.Name, float64((countRecs[i]*100)/4), "%")
 		}
 	}
 }
