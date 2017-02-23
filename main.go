@@ -49,6 +49,8 @@ func main() {
 		}
 	}
 
+	fmt.Printf("|%40s|%70s|\n", "Your Matches", "Accuracy")
+	fmt.Printf("|%40s|%70s|\n", "", "")
 	for i, e := range allRecs {
 		if countRecs[i] > 2 {
 			fmt.Println(e.Name, float64((countRecs[i]*100)/4), "%")
