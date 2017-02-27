@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/disiqueira/tindergo"
 )
@@ -49,11 +50,11 @@ func main() {
 		}
 	}
 
-	fmt.Printf("|%40s|%70s|\n", "Your Matches", "Accuracy")
-	fmt.Printf("|%40s|%70s|\n", "", "")
+	fmt.Printf("|%40s|%10s|\n", "Your Matches", "Accuracy")
+	fmt.Printf("|%40s|%10s|\n", "", "")
 	for i, e := range allRecs {
 		if countRecs[i] > 2 {
-			fmt.Println(e.Name, float64((countRecs[i]*100)/4), "%")
+			fmt.Printf("|%40s|%10s|\n", e.Name, strconv.FormatFloat(float64((countRecs[i]*100)/4), 'f', 6, 64))
 		}
 	}
 }
