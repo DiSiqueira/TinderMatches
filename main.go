@@ -21,6 +21,7 @@ func main() {
 	t := tindergo.New()
 
 	err := t.Authenticate(*token)
+
 	checkError(err)
 
 	profile, err := t.Profile()
