@@ -11,7 +11,6 @@ import (
 
 func main() {
 	token := flag.String("token", "", "Your Facebook Token.")
-
 	flag.Parse()
 
 	if *token == "" {
