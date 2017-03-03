@@ -1,34 +1,13 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"os"
 	"strconv"
 
 	"github.com/disiqueira/tindergo"
 )
 
 func main() {
-	token := flag.String("token", "", "Your Facebook Token.")
-	flag.Parse()
-
-	if *token == "" {
-		fmt.Println("You must provide a valid Facebook Token.")
-		os.Exit(2)
-	}
-
-	t := tindergo.New()
-
-	err := t.Authenticate(*token)
-	checkError(err)
-
-	profile, err := t.Profile()
-	checkError(err)
-
-	fmt.Println("You:")
-	fmt.Println("Name: " + profile.Name)
-	fmt.Println("")
 
 	allRecs := make(map[string]tindergo.RecsCoreUser)
 
@@ -56,12 +35,5 @@ func main() {
 		if countRecs[i] > 1 {
 			fmt.Printf("|%40s|%10s|\n", e.Name, strconv.FormatFloat(float64((countRecs[i]*100)/4), 'f', 0, 64)+"%")
 		}
-	}
-}
-
-// checkError Panic application if has an error returned.
-func checkError(err error) {
-	if err != nil {
-		panic(err)
 	}
 }
