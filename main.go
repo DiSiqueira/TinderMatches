@@ -50,6 +50,7 @@ func main() {
 	}
 
 	fmt.Printf("|%40s|%10s|\n", "Your Matches", "Accuracy")
+
 	fmt.Printf("|%40s|%10s|\n", "", "")
 	for i, e := range allRecs {
 		if countRecs[i] > 1 {
