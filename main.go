@@ -10,11 +10,9 @@ import (
 func main() {
 
 	a := App{}
-
 	a.start()
 
 	allRecs := make(map[string]tindergo.RecsCoreUser)
-
 	countRecs := make(map[string]int)
 
 	for j := 0; j <= 3; j++ {
