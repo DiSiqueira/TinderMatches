@@ -30,20 +30,12 @@ func main() {
 	fmt.Println("Name: " + profile.Name)
 	fmt.Println("")
 
-	err = getRecs(t)
-	checkError(err)
-}
-
-// getRecs makes four requests to find common results.
-func getRecs(t *tindergo.TinderGo) error {
 	var allRecs map[string]tindergo.RecsCoreUser
 	var countRecs map[string]int
 
 	for j := 0; j <= 3; j++ {
 		recs, err := t.RecsCore()
-		if err != nil {
-			return err
-		}
+		checkError(err)
 
 		for _, elem := range recs {
 			_, exist := allRecs[elem.ID]
@@ -55,6 +47,7 @@ func getRecs(t *tindergo.TinderGo) error {
 			}
 		}
 	}
+
 }
 
 // checkError Panic application if has an error returned.
