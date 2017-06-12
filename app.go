@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/disiqueira/tindergo"
+	"strconv"
 )
 
 type App struct {
@@ -14,20 +15,8 @@ type App struct {
 	profile tindergo.Profile
 }
 
-func (a *App) start() {
-	var err error
-	err = a.createValidateToken()
-	a.checkError(err)
-	err = a.createTinderAutenticate()
-	a.checkError(err)
-	err = a.getTinderProfile()
-	a.checkError(err)
-	a.printBasicInfo()
-}
-
 func (a *App) createValidateToken() error {
-	createTokenFlag()
-	return validateTokenFlag()
+	return a.validateTokenFlag()
 }
 
 func (a *App) createTokenFlag() {
@@ -42,23 +31,22 @@ func (a *App) validateTokenFlag() error {
 	return nil
 }
 
-func (a *App) createTinderAutenticate() error {
+func (a *App) createTinderAuthenticate() error {
 	a.createTinderInstance()
-	return a.autenticateTinderUsingToken()
+	return a.authenticateTinderUsingToken()
 }
 
 func (a *App) createTinderInstance() {
 	a.tinder = tindergo.New()
 }
 
-func (a *App) autenticateTinderUsingToken() error {
+func (a *App) authenticateTinderUsingToken() error {
 	return a.tinder.Authenticate(*a.token)
 }
 
-func (a *App) getTinderProfile() error {
-	var err error
+func (a *App) getTinderProfile() (err error) {
 	a.profile, err = a.tinder.Profile()
-	return err
+	return
 }
 
 func (a *App) printBasicInfo() {
@@ -75,9 +63,57 @@ func (a *App) printBlankLine() {
 	fmt.Println("")
 }
 
-// checkError Panic application if has an error returned.
-func (a *App) checkError(err error) {
+func (a *App) getPrintMatches(requests int) (err error) {
+	matchList, err := a.getMatches(requests)
 	if err != nil {
-		panic(err)
+		return
+	}
+	a.printMatchesHeader()
+	a.printMatches(matchList, requests)
+	return
+}
+
+type matchList map[string]match
+
+type match struct {
+	user  tindergo.RecsCoreUser
+	count int
+}
+
+func (a *App) getMatches(requests int) (matchAll matchList, err error) {
+	matchAll = make(matchList)
+	for j := 0; j <= requests; j++ {
+		recs, err := a.tinder.RecsCore()
+		if err != nil {
+			return matchAll, err
+		}
+
+		fmt.Println("NEW REQUEST")
+
+		for _, elem := range recs {
+			fmt.Println(elem.ID)
+			m := match{
+				user:  elem,
+				count: 1,
+			}
+			_, exist := matchAll[elem.ID]
+			if exist {
+				m.count += matchAll[elem.ID].count
+			}
+			matchAll[elem.ID] = m
+		}
+	}
+	return
+}
+
+func (a *App) printMatchesHeader() {
+	fmt.Printf("|%40s|%10s|\n", "Your Matches", "Accuracy")
+}
+
+func (a *App) printMatches(matches matchList,requests int) {
+	for _, e := range matches {
+		if e.count > 1 {
+			fmt.Printf("|%40s|%10s|\n", e.user.Name, strconv.FormatFloat(float64((e.count*100)/requests), 'f', 0, 64)+"%")
+		}
 	}
 }

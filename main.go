@@ -1,41 +1,36 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-
-	"github.com/disiqueira/tindergo"
+var (
+	app App
 )
 
+const (
+	numRequests = 4
+)
+
+func init() {
+	app = App{}
+	app.createTokenFlag()
+}
+
 func main() {
+	err := app.validateTokenFlag()
+	checkError(err)
 
-	a := App{}
-	a.start()
+	err = app.createTinderAuthenticate()
+	checkError(err)
 
-	allRecs := make(map[string]tindergo.RecsCoreUser)
-	countRecs := make(map[string]int)
+	err = app.getTinderProfile()
+	checkError(err)
 
-	for j := 0; j <= 3; j++ {
-		recs, err := t.RecsCore()
-		checkError(err)
+	app.printBasicInfo()
 
-		for _, elem := range recs {
-			_, exist := allRecs[elem.ID]
-			if exist {
-				countRecs[elem.ID] = countRecs[elem.ID] + 1
-			} else {
-				countRecs[elem.ID] = 1
-				allRecs[elem.ID] = elem
-			}
-		}
-	}
+	err = app.getPrintMatches(numRequests)
+	checkError(err)
+}
 
-	fmt.Printf("|%40s|%10s|\n", "Your Matches", "Accuracy")
-
-	fmt.Printf("|%40s|%10s|\n", "", "")
-	for i, e := range allRecs {
-		if countRecs[i] > 1 {
-			fmt.Printf("|%40s|%10s|\n", e.Name, strconv.FormatFloat(float64((countRecs[i]*100)/4), 'f', 0, 64)+"%")
-		}
+func checkError(err error) {
+	if err != nil {
+		panic(err)
 	}
 }
